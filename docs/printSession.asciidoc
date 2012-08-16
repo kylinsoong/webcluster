@@ -1,0 +1,13 @@
+What's this?
+------------
+This is a web application, which print request attributes to Web page.
+
+
+How to deploy and test?
+----------------------
+* Use maven build project
+----
+mvn clean install
+----
+
+* deploy `print-session-1.0.war`, test from http://localhost:8080/printSession

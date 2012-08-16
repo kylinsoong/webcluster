@@ -1,4 +1,11 @@
 <%@ page language="java" import="java.util.*, java.text.*, com.kylin.webcluster.log.*" pageEncoding="ISO-8859-1"%>
+
+<table border="1", align="right">
+  <tr>
+    <td>Count: </td>
+    <td><%=Counter.getCount() %></td>
+  </tr>
+</table>
 <hr>
 <% 
 String path = request.getContextPath();
@@ -18,20 +25,37 @@ if(request.getRequestedSessionId() != null) {
 	requestSessionId = request.getRequestedSessionId().toString();
 }
 String sessionId = request.getSession().getId();
-String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss(S) E").format(new Date(request.getSession().getCreationTime()));
-String lastAccessTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss(S) E").format(new Date(request.getSession().getLastAccessedTime()));
+String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss(S)").format(new Date(request.getSession().getCreationTime()));
+String lastAccessTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss(S)").format(new Date(request.getSession().getLastAccessedTime()));
 
 new SessionLogging().logRequest(new RequestBean(path, basePath, protocol, servletPath, remoteAddr, remoteHost, remoteUser, remotePort, localAddr, localName, localPort, requestUrl, requestSessionId, sessionId, creationDate, lastAccessTime));
 
 %>
 Protocol: <%=protocol %><br><br>
 Remote Address: <%=remoteAddr %> &nbsp;&nbsp;&nbsp; Remote Host: <%=remoteHost %> &nbsp;&nbsp;&nbsp; Remote User: <%=remoteUser %> &nbsp;&nbsp;&nbsp; Remote Port: <%=remotePort %><br><br>
- local Address: <%=localAddr %> &nbsp;&nbsp;&nbsp; local Name: <%=localName %> &nbsp;&nbsp;&nbsp; localPort: <%=localPort %><br><br>
-requestUrl: <%=requestUrl %><br><br>
-requestSessionId: <%=requestSessionId %><br><br>
-sessionId: <%=sessionId %><br><br>
-creationDate: <%=creationDate %><br><br>
-lastAccessTime: <%=lastAccessTime %><br><br>
+Local Address: <%=localAddr %> &nbsp;&nbsp;&nbsp; Local Name: <%=localName %> &nbsp;&nbsp;&nbsp; LocalPort: <%=localPort %><br><br>
+<table border="1", cellpadding="10", cellspacing="10", align="center", width="80%", frame="above">
+  <tr>
+    <td>Request URL: </td>
+    <td><%=requestUrl %></td>
+  </tr>
+  <tr>
+    <td>Request Session ID: </td>
+    <td><%=requestSessionId %></td>
+  </tr>
+  <tr>
+    <td>Session ID: </td>
+    <td><%=sessionId %></td>
+  </tr>
+  <tr>
+    <td>Creation Date: </td>
+    <td><%=creationDate %></td>
+  </tr>
+  <tr>
+    <td>Last Access Time: </td>
+    <td><%=lastAccessTime %></td>
+  </tr>
+</table>
 <%
 %>
 
