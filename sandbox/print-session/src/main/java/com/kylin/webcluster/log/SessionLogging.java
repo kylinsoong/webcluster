@@ -7,22 +7,23 @@ public class SessionLogging {
 	private static final Logger logger = Logger.getLogger(SessionLogging.class);
 	
 	public void logRequest(RequestBean bean) {
+		
 		logger.info("Logging request start");
-		logger.info("	path: " + bean.getBasePath());
-		logger.info("	protocol: " + bean.getProtocol());
-		logger.info("	servletPath: " + bean.getServletPath());
-		logger.info("	remoteAddr: " + bean.getRemoteAddr());
-		logger.info("	remoteHost: " + bean.getRemoteHost());
-		logger.info("	remotePost" + bean.getRemotePort());
-		logger.info("	remoteUser: " + bean.getRemoteUser());
-		logger.info("	localAddr: " + bean.getLocalAddr());
-		logger.info("	localName: " + bean.getLocalName());
-		logger.info("	localHost: " + bean.getLocalPort());
-		logger.info("	requestURL: " + bean.getRequestUrl());
-		logger.info("	requestSessionID: " + bean.getRequestSessionId());
-		logger.info("	sessionID: " + bean.getSessionId());
-		logger.info("	session creation time: " + bean.getCreationDate());
-		logger.info("	session last access time: " + bean.getLastAccessTime());
+		logger.debug("Path: " + bean.getBasePath());
+		logger.debug("Protocol: " + bean.getProtocol());
+		logger.debug("Servlet Path: " + bean.getServletPath());
+		logger.debug("Remote Address: " + bean.getRemoteAddr());
+		logger.debug("Remote Host: " + bean.getRemoteHost());
+		logger.debug("Remote Port" + bean.getRemotePort());
+		logger.debug("Remote User: " + bean.getRemoteUser());
+		logger.debug("Local Address: " + bean.getLocalAddr());
+		logger.debug("Local Name: " + bean.getLocalName());
+		logger.debug("Local Host: " + bean.getLocalPort());
+		logger.debug("Request URL: " + bean.getRequestUrl());
+		logger.info("Request Session ID: " + bean.getRequestSessionId());
+		logger.info("Session ID: " + bean.getSessionId());
+		logger.debug("Session Creation Time: " + bean.getCreationDate());
+		logger.debug("Session Last Access Time: " + bean.getLastAccessTime());
 		logger.info("-----------------------------");
 	}
 
