@@ -1,0 +1,35 @@
+Implement SSL Encryption for the JBoss Enterprise Application Platform Web Server
+---------------------------------------------------------------------------------
+
+* start JBoss use standalone-ha.xml
+----
+./standalone.sh --server-config=standalone-ha.xml
+----
+
+* add `https` connector
+----
+/subsystem=web/connector=HTTPS/:add(socket-binding=https,name=https,protocol=HTTP/1.1,scheme=https,enabled=true,secure=true)
+----
+
+* generate a keystore with public and private keys.
+----
+keytool -genkey -alias jboss -keyalg RSA -keystore server.keystore
+----
+
+* verify the key
+----
+keytool -list -keystore server.keystore
+----
+
+* generate a certificate using the encryption key
+----
+keytool -certreq -keyalg RSA -alias jboss -file certreq.csr -keystore server.keystore
+----
+
+* test the newly generated certificate
+----
+openssl req -in certreq.csr -noout -text
+----
+
+
+
