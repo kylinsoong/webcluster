@@ -1,0 +1,17 @@
+Replace the Default Welcome Web Application
+-------------------------------------------
+
+* Disable the Welcome application.
+----
+/subsystem=web/virtual-server=default-host/:write-attribute(name=enable-welcome-root,value=false)
+----
+
+* Configure your Web application to use the root context.
+----
+<jboss-web>
+<context-root>/</context-root>
+</jboss-web>
+----
+
+* Deploy your application
+

@@ -1,0 +1,31 @@
+Configure the Modcluster Subsystem
+----------------------------------
+
+* start JBoss use standalone-ha.xml 
+----
+./standalone.sh --server-config=standalone-ha.xml
+----
+
+* add load balancing group
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=load-balancing-group,value=kylinGroup)
+----
+
+* add balancer
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
+----
+
+* unable sticky session
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=sticky-session,value=false)
+----
+
+* copy *.so to httpd/modules
+----
+cp /home/kylin/work/eap/jboss-eap-6.0/modules/native/lib/httpd/modules/mod_* ./
+----
+
+* disable the mod_proxy_balancer module.
+
+* copy `JBoss_HTTP.conf` to `/etc/httpd/conf.d' 

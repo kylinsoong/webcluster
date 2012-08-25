@@ -31,5 +31,8 @@ keytool -certreq -keyalg RSA -alias jboss -file certreq.csr -keystore server.key
 openssl req -in certreq.csr -noout -text
 ----
 
-
+* configure the SSL encryption certificate and keys.
+----
+// come soon
+----
 
