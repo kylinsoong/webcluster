@@ -1,14 +1,12 @@
 Configure the Modcluster Subsystem
 ----------------------------------
 
+Scenario One: httpd with mod_cluster with One Standalone instance
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 * start JBoss use standalone-ha.xml 
 ----
 ./standalone.sh --server-config=standalone-ha.xml
-----
-
-* add load balancing group
-----
-/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=load-balancing-group,value=kylinGroup)
 ----
 
 * add balancer
@@ -28,4 +26,11 @@ cp /home/kylin/work/eap/jboss-eap-6.0/modules/native/lib/httpd/modules/mod_* ./
 
 * disable the mod_proxy_balancer module.
 
-* copy `JBoss_HTTP.conf` to `/etc/httpd/conf.d' 
+* copy `JBoss_HTTP.conf` to `/etc/httpd/conf.d'
+
+* configure a mod_cluster Worker Node
+** do nothing
+
+* change standalone Balancer to `kylincluster`, Proxy List: 192.168.1.108:9876
+
+NOTE: this should be equal with balancer and proxy defined in `JBoss_HTTP.conf`
