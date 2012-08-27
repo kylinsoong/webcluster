@@ -1,6 +1,5 @@
-
-Scenario One: 'httpd' on 10.66.129.69, `standalone JBoss` on 10.66.129.116, printSession web app deploy on 10.66.129.116
-------------------------------------------------------------------------------------------------------------------------
+Scenario One: `httpd` on 10.66.129.69, `standalone JBoss` on 10.66.129.116, printSession web app deployed on 10.66.129.116
+--------------------------------------------------------------------------------------------------------------------------
 
 1. httpd side configuration
 ++++++++++++++++++++++++++++
@@ -50,11 +49,53 @@ service httpd start
 
 NOTE: balancer, proxy list should match the configuration of the external HTTPD server.
 
-* build add deploy printSession project on standalone JBoss on 10.66.129.116
+* build add deploy printSession project to standalone JBoss on 10.66.129.116
  
 3. test
 +++++++
 
 . test through http://10.66.129.116:8080/printSession/
+
+. test through http://10.66.129.69/printSession/
+
+
+Scenario Two: `httpd` on 10.66.129.69, `standalone JBoss` on both 10.66.129.116 and 10.66.129.69, printSession web app deployed on both 10.66.129.116 and 10.66.129.69
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. httpd side configuration
++++++++++++++++++++++++++++
+
+Totally identical with scenario One
+
+2. standalone JBoss side confiduration
++++++++++++++++++++++++++++++++++++++++
+
+* start JBoss use standalone-ha.xml
+
+----
+./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.69 -Djboss.node.name=node1
+----
+
+----
+./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.116 -Djboss.node.name=node2
+----
+
+* either use CLI or management console add balancer, unable sticky session, add proxy list, both 10.66.129.116 and 10.66.129.69 do the same operation
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
+---- 
+
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=sticky-session,value=false)
+----
+
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.129.69:9876)
+----
+
+* build add deploy printSession project on both 10.66.129.116 and 10.66.129.69
+
+3 test
+++++++
 
 . test through http://10.66.129.69/printSession/
