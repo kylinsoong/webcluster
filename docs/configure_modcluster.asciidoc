@@ -59,26 +59,41 @@ Scenario One: 'httpd' on 10.66.129.69, `Standalone JBoss` on 10.66.129.116
 
 ''''
 LoadModule slotmem_module modules/mod_slotmem.so
+
 LoadModule manager_module modules/mod_manager.so
+
 LoadModule proxy_cluster_module modules/mod_proxy_cluster.so
+
 LoadModule advertise_module modules/mod_advertise.so
 
 
 Listen 10.66.129.69:9876
 
 <VirtualHost 10.66.129.69:9876>
+
     <Directory />
+
         Order deny,allow
+
         Allow from all
+
     </Directory>
+
     <Location />
+
         Order deny,allow
+
         Allow from all
     </Location>
-          KeepAliveTimeout 60
-          ManagerBalancerName kylincluster
-          ServerAdvertise Off
-          EnableMCPMReceive On
+
+    KeepAliveTimeout 60
+
+    ManagerBalancerName kylincluster
+
+    ServerAdvertise Off
+
+    EnableMCPMReceive On
+
 </VirtualHost>
 
 ''''
