@@ -25,12 +25,61 @@ cp /home/kylin/work/eap/jboss-eap-6.0/modules/native/lib/httpd/modules/mod_* ./
 ----
 
 * disable the mod_proxy_balancer module.
+----
+#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+----
 
-* copy `JBoss_HTTP.conf` to `/etc/httpd/conf.d'
+* copy 'JBoss_HTTP.conf' to '/etc/httpd/conf.d'
 
 * configure a mod_cluster Worker Node
 ** do nothing
 
-* change standalone Balancer to `kylincluster`, Proxy List: 192.168.1.108:9876
+* add Proxy list
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.129.69:9876)
+----
 
 NOTE: this should be equal with balancer and proxy defined in `JBoss_HTTP.conf`
+
+
+Scenario One: 'httpd' on 10.66.129.69, `Standalone JBoss` on 10.66.129.116
+==========================================================================
+
+1. httpd side configuration
+++++++++++++++++++++++++++++
+
+* copy mod_cluster referenced *.so to httpd/modules
+
+* disable the mod_proxy_balancer module from /httpd/conf/httpd.conf
+----
+#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+----
+
+* create JBoss_HTTP.conf(can be <any name>.conf) under /etc/httpd/conf.d, add the following contents.
+
+''''
+LoadModule slotmem_module modules/mod_slotmem.so
+LoadModule manager_module modules/mod_manager.so
+LoadModule proxy_cluster_module modules/mod_proxy_cluster.so
+LoadModule advertise_module modules/mod_advertise.so
+
+
+Listen 10.66.129.69:9876
+
+<VirtualHost 10.66.129.69:9876>
+    <Directory />
+        Order deny,allow
+        Allow from all
+    </Directory>
+    <Location />
+        Order deny,allow
+        Allow from all
+    </Location>
+          KeepAliveTimeout 60
+          ManagerBalancerName kylincluster
+          ServerAdvertise Off
+          EnableMCPMReceive On
+</VirtualHost>
+
+''''
+
