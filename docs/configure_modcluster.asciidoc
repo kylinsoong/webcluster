@@ -1,60 +1,60 @@
-Configure the Modcluster Subsystem
-----------------------------------
 
-Scenario One: httpd with mod_cluster with One Standalone instance
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-* start JBoss use standalone-ha.xml 
-----
-./standalone.sh --server-config=standalone-ha.xml
-----
-
-* add balancer
-----
-/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
-----
-
-* unable sticky session
-----
-/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=sticky-session,value=false)
-----
-
-* copy *.so to httpd/modules
-----
-cp /home/kylin/work/eap/jboss-eap-6.0/modules/native/lib/httpd/modules/mod_* ./
-----
-
-* disable the mod_proxy_balancer module.
-----
-#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
-----
-
-* copy 'JBoss_HTTP.conf' to '/etc/httpd/conf.d'
-
-* configure a mod_cluster Worker Node
-** do nothing
-
-* add Proxy list
-----
-/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.129.69:9876)
-----
-
-NOTE: this should be equal with balancer and proxy defined in `JBoss_HTTP.conf`
-
-
-Scenario One: 'httpd' on 10.66.129.69, `Standalone JBoss` on 10.66.129.116
-==========================================================================
+Scenario One: 'httpd' on 10.66.129.69, `standalone JBoss` on 10.66.129.116, printSession web app deploy on 10.66.129.116
+------------------------------------------------------------------------------------------------------------------------
 
 1. httpd side configuration
 ++++++++++++++++++++++++++++
 
+* edit httpd/conf/httpd.conf, maded httpd listen on 10.66.129.69:80
+----
+Listen 10.66.129.69:80
+----
+
 * copy mod_cluster referenced *.so to httpd/modules
 
-* disable the mod_proxy_balancer module from /httpd/conf/httpd.conf
+* disable the mod_proxy_balancer module from httpd/conf/httpd.conf
 ----
 #LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 ----
 
-* copy JBoss_HTTP_1.conf to foler /etc/httpd/conf.d
+* copy JBoss_HTTP_1.conf to folder httpd/conf.d
 
 link:JBoss_HTTP_1.conf[JBoss_HTTP_1.conf]
+
+* start httpd
+----
+service httpd start
+----
+
+2. standalone JBoss side confiduration
++++++++++++++++++++++++++++++++++++++++
+
+* start JBoss use standalone-ha.xml
+----
+./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.116
+----
+
+* either use CLI or management console add balancer, unable sticky session, add proxy list
+
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
+----
+
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=sticky-session,value=false)
+----
+
+----
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.129.69:9876)
+----
+
+NOTE: balancer, proxy list should match the configuration of the external HTTPD server.
+
+* build add deploy printSession project on standalone JBoss on 10.66.129.116
+ 
+3. test
++++++++
+
+. test through http://10.66.129.116:8080/printSession/
+
+. test through http://10.66.129.69/printSession/
