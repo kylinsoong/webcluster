@@ -2,12 +2,13 @@ package com.redhat.cloudform.demo.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.log4j.Logger;
 
 import com.redhat.cloudform.demo.events.Content;
 
@@ -17,8 +18,7 @@ public class ContentBean implements Serializable {
 
 	private static final long serialVersionUID = -2129634854762195272L;
 
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getLogger(ContentBean.class);
 	
 	@Inject
 	Event<Content> contentProducer;
@@ -50,12 +50,15 @@ public class ContentBean implements Serializable {
 		
 		contentProducer.fire(currentEvtPayload);
 		
-		logger.info("fire " + currentEvtPayload);
+		logger.debug("add " + currentEvtPayload);
 		
 		return "index";
 	}
 	
 	public void reset() {
+		
+		logger.debug("reset content");
+		
 		content = null;
 	}
 }

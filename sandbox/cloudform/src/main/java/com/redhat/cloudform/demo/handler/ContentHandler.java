@@ -3,13 +3,14 @@ package com.redhat.cloudform.demo.handler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.log4j.Logger;
 
 
 
@@ -21,8 +22,7 @@ public class ContentHandler implements Serializable {
 
 	private static final long serialVersionUID = -3093559590034641607L;
 	
-	@Inject
-	private Logger logger;
+	private static final Logger logger = Logger.getLogger(ContentHandler.class);
 	
 	@Inject
 	private ContentSession contentSession;
@@ -38,7 +38,7 @@ public class ContentHandler implements Serializable {
 
 	public void onEvent(@Observes Content event) {
 		
-		logger.info("Processing event: " + event);
+		logger.debug("Processing event: " + event);
 		
 		contents.add(event);
 		
@@ -49,13 +49,13 @@ public class ContentHandler implements Serializable {
 
 	private void addToDB(Content event) {
 		
-		logger.info("persit event to DB");
+		logger.debug("persit event to DB");
 		
 		try {
 			contentSession.addContent(event);
 		} catch (Exception e) {
 			
-			logger.fine(e.getMessage());
+			logger.error(e);
 		}
 	}
 }
