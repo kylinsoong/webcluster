@@ -23,7 +23,7 @@ public class ContentBean implements Serializable {
 	@Inject
 	Event<Content> contentProducer;
 	
-	private String content = "Cloud Form Test Demo";
+	private String content = "Content Display Demo";
 	
 	public Event<Content> getContentProducer() {
 		return contentProducer;

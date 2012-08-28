@@ -11,6 +11,9 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
+
+import com.redhat.cloudform.demo.ejb.ContentSession;
 import com.redhat.cloudform.demo.events.Content;
 
 @SessionScoped
@@ -20,6 +23,9 @@ public class ContentHandler implements Serializable {
 	
 	@Inject
 	private Logger logger;
+	
+	@Inject
+	private ContentSession contentSession;
 	
 	List<Content> contents = new ArrayList<Content>();
 	
@@ -38,10 +44,18 @@ public class ContentHandler implements Serializable {
 		
 		addToDB(event);
 	}
+	
+	
 
 	private void addToDB(Content event) {
 		
 		logger.info("persit event to DB");
 		
+		try {
+			contentSession.addContent(event);
+		} catch (Exception e) {
+			
+			logger.fine(e.getMessage());
+		}
 	}
 }

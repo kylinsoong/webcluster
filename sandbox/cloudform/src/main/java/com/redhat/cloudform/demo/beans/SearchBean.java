@@ -2,7 +2,6 @@ package com.redhat.cloudform.demo.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,6 +10,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.redhat.cloudform.demo.ejb.ContentSession;
 import com.redhat.cloudform.demo.events.Content;
 
 @Named
@@ -22,6 +22,9 @@ public class SearchBean implements Serializable{
 	@Inject
 	private Logger logger;
 	
+	@Inject
+	private ContentSession contentSession;
+	
 	List<Content> lists = new ArrayList<Content>();
 
 	@Produces
@@ -30,17 +33,17 @@ public class SearchBean implements Serializable{
 		return lists;
 	}
 	
+	
 	public void search() {
 		
 		logger.info("extract all event from db");
 		
-		for (int i = 0 ; i < 50 ; i ++) {
-			Content c = new Content();
-			c.setId( i + 1 );
-			c.setDatetime(new Date());
-			c.setContent("-------");
-			c.setServer(System.getProperty("jboss.bind.address"));
-			lists.add(c);
+		lists.clear();
+		
+		try {
+			lists = contentSession.search();
+		} catch (Exception e) {
+			logger.fine(e.getMessage());
 		}
 	}
 }

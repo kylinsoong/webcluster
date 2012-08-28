@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
+    <!-- The datasource is bound into JNDI at this location. We reference 
+        this in META-INF/persistence.xml -->
+    <xa-datasource jndi-name="java:jboss/datasources/CloudFormTestDS"  pool-name="cloudform-demo">
+        <xa-datasource-property name="ServerName">10.66.129.69</xa-datasource-property>
+        <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+	<xa-datasource-property name="DatabaseName">cmtdb</xa-datasource-property>
+        <driver>postgresql</driver>
+        <security>
+        	<user-name>cmtuser</user-name>
+                <password>redhat</password>
+        </security>
+	<!--<validation>
+		<valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"></valid-connection-checker>
+		<exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"></exception-sorter>
+        </validation>-->
+
+    </xa-datasource>
+    
+</datasources>

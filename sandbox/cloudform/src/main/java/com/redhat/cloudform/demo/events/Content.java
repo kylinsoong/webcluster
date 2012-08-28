@@ -2,8 +2,17 @@ package com.redhat.cloudform.demo.events;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Content")
 public class Content {
 
+	@Id
+    @GeneratedValue
 	private int id;
 	
 	private Date datetime;
