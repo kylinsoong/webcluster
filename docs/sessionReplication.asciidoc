@@ -1,0 +1,16 @@
+What's this
+-----------
+
+Primary purpose of this demo is to show webcluster session replication.
+
+
+Procedure for test Session Replication
+--------------------------------------
+
+* Start JBoss EAP 6 & JBoss AS 7 as cluster mode
+
+* Make sure sticky-session value is true
+
+* Shutdown one of clustered node, check session replication
+
+

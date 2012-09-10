@@ -1,6 +1,9 @@
 index
 -----
-link:printSession.asciidoc[Print Session Demo Entry]
+link:sessionPrint.asciidoc[Session Print Demo Entry]
+
+link:sessionReplication.asciidoc[Session Replication Content Display Demo]
+
 
 
 other
