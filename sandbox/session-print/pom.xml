@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>com.kylin.webcluster</groupId>
-   <artifactId>print-session</artifactId>
+   <artifactId>session-print</artifactId>
    <version>1.0</version>
    <packaging>war</packaging>
    <name>web cluster</name>
