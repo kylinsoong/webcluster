@@ -50,14 +50,14 @@ public class ContentBean implements Serializable {
 		
 		contentProducer.fire(currentEvtPayload);
 		
-		logger.debug("add " + currentEvtPayload);
+		logger.info("add " + currentEvtPayload);
 		
 		return "index";
 	}
 	
 	public void reset() {
 		
-		logger.debug("reset content");
+		logger.info("reset content");
 		
 		content = null;
 	}

@@ -9,7 +9,7 @@
 
 		<ui:define name="content">
 
-			<h1>CloudForms, JBoss EAP 6 Content Display Demo <span class="label success">New</span></h1>
+			<h1>Session Replication Content Display Demo <span class="label success">New</span></h1>
 			
 			<p>Type a content, then click Add.</p>
 			
@@ -54,39 +54,5 @@
          
         </h:dataTable>
         
-        <h:form>
-			<fieldset>
-				<div class="actions">
-					<h:commandButton id="submit" value=" All Contents in DB " action="#{searchBean.search}" styleClass="btn"/>
-				</div>
-			</fieldset>
-		</h:form>
-                
-        <h:dataTable var="list" value="#{lists}" rendered="#{not empty contents}" styleClass="zebra-striped">
-         	
-         	<h:column>
-            	<f:facet name="header">ID</f:facet>
-                #{list.id}
-            </h:column>
-            
-         	<h:column>
-           			 <f:facet name="header">Date</f:facet>
-              		 <h:outputText value="#{list.datetime}"> 
-               			 <f:convertDateTime type="date" pattern="dd/MM/yyyy hh:mm:ss"/> 
-                	 </h:outputText>
-            </h:column>
-         
-         	<h:column>
-            	<f:facet name="header">Content</f:facet>
-                #{list.content}
-            </h:column>
-            
-            <h:column>
-            	<f:facet name="header">Server</f:facet>
-                #{list.server}
-            </h:column>
-         </h:dataTable>
-		
-			
 		</ui:define>
 </ui:composition>

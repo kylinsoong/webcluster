@@ -1,5 +1,6 @@
 package com.redhat.cloudform.demo.events;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Content")
-public class Content {
+public class Content implements  Serializable{
 
-	@Id
-    @GeneratedValue
+	private static final long serialVersionUID = 1791784829142993458L;
+
 	private int id;
 	
 	private Date datetime;
