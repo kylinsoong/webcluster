@@ -13,3 +13,5 @@ link:implement_ssl_encryption.asciidoc[Implement SSL Encryption on Web Applicati
 link:replace_default_welcome_application.asciidoc[Replace the Default Welcome Web Application]
 
 link:configure_modcluster.asciidoc[Configure the Modcluster Subsystem]
+
+link:ssl_configuration_on_eap5.asciidoc[SSL Configuratiuon on eap 5]

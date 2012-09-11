@@ -20,6 +20,7 @@
     <modules>
         <module>session-print</module>
         <module>session-replication</module>
+	<module>rewrite-proxy</module>
     </modules>
 
 </project>
