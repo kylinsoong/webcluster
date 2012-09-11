@@ -1,0 +1,28 @@
+SSL configuration on EAP 5
+--------------------------
+
+* Generate a new SSL certificate using the keytool application.
+郭先生，您好
+
+欢迎使用红帽软件全球技术支持服务！
+
+根据之前电话沟通，您想确认JBoss有无类似代理功能，使用户只能看到的指定URL而看不到全部内部转接.
+
+我们可以通过Apache mod_rewrite 结合JBoss来完成你们的需求，这种解决方案需要你们额外购买Red Hat中间件产品EWS订阅。单独的JBoss能不能提供这种功能，我需要再次确认一下。
+
+本Case状态我暂时设定为“Waiting on Red Hat”, 任何进一步问题欢迎与我们沟通。
+
+顺祝商祺
+
+宋志麒
+红帽软件全球技术支持服务
+
+-- 
+Kylin Soong  
+Associate Technical Support Engineer
+JBoss By Redhat
+Phone:  +86 010 65339308 89308
+Mobile: +86 18611907049       
+
+
+
