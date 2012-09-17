@@ -1,38 +1,103 @@
-Implement SSL Encryption for the JBoss Enterprise Application Platform Web Server
----------------------------------------------------------------------------------
+Generate a SSL Encryption Key and Certificate
+---------------------------------------------
+To use a SSL-encrypted HTTP connection (HTTPS), as well as other types of SSL-encrypted communication, you need a signed encryption certificate. You can purchase a certificate from a Certificate Authority (CA), or you can use a self-signed certificate. Self-signed certificates are not considered trustworthy by many third parties, but are appropriate for internal testing purposes.
 
-* start JBoss use standalone-ha.xml
-----
-./standalone.sh --server-config=standalone-ha.xml
-----
 
-* add `https` connector
-----
-/subsystem=web/connector=HTTPS/:add(socket-binding=https,name=https,protocol=HTTP/1.1,scheme=https,enabled=true,secure=true)
-----
+*This procedure enables you to create a self-signed certificate using utilities which are available on Red Hat Enterprise Linux*
 
-* generate a keystore with public and private keys.
-----
-keytool -genkey -alias jboss -keyalg RSA -keystore server.keystore
-----
 
-* verify the key
+Prerequisites
++++++++++++++
+* You need the *keytool* utility, which is provided by any Java Development Kit implementation. OpenJDK on Red Hat Enterprise Linux installs this command to /usr/bin/keytool.
+* Understand the syntax and parameters of the keytool command.
+
+Procedure
++++++++++
+
+* *Generate a keystore with public and private keys.* Run the following command to generate a keystore named *server.keystore*, in your current directory, and create a new key with the alias *jboss*. 
 ----
-keytool -list -keystore server.keystore
+keytool -genkey -alias jboss -keyalg RSA -keystore redhat.keystore
 ----
 
-* generate a certificate using the encryption key
+* Verify the key. Verify that the key works propertly by using the following command.
 ----
-keytool -certreq -keyalg RSA -alias jboss -file certreq.csr -keystore server.keystore
+keytool -list -keystore redhat.keystore
 ----
 
-* test the newly generated certificate
+* *Generate a certificate using the encryption key.* Run the following command to generate a certificate signed using the encryption key you have created.
+----
+keytool -certreq -keyalg RSA -alias jboss -file certreq.csr -keystore redhat.keystore
+----
+You are prompted for the password in order to authenticate to the keystore. The keytool command then creates a new signed certificate called *certreq.csr* in the current working directory.
+
+* *Test the newly generated certificate.* Test the contents of the certificate by using the following command.
 ----
 openssl req -in certreq.csr -noout -text
 ----
 
-* configure the SSL encryption certificate and keys.
+* Submit your certificate to a Certificate Authority (CA).
+A Certificate Authority (CA) can authenticate your certificate so that it is considered trustworthy by third-party clients. The CA supplies you with a signed certificate, and optionally with one or more intermediate certificates.
+
+* Self-sign your certificate.
+If you only need the certificate for testing or internal purposes, you can self-sign it. Use the following command to cause the signature to expire in 365 days.
 ----
-// come soon
+openssl x509 -req -days 365 -in certreq.csr -signkey redhat.keystore -out redhat.crt
 ----
+
+
+SSL configuration on EAP 6
+--------------------------
+* Generate a SSL Encryption Key and Certificate Use above procedure
+* Add the following
+----
+<connector name="https" protocol="HTTP/1.1" scheme="https" socket-binding="https" enable-lookups="false" secure="true">
+                <ssl password="PASSWORD" certificate-key-file="<PATH>/test.keystore" protocol="TLSv1" verify-client="false" certificate-file="<PATH>/test.keystore"/>
+</connector>
+----
+to urn:jboss:domain:web:1.1 subsystem, below
+----
+<connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/> 
+----
+and above
+----
+<virtual-server name="default-host" enable-welcome-root="true">
+----
+
+* If got a public certificate from third part CA vendor, use the following:
+----
+<connector name="https" protocol="HTTP/1.1" scheme="https" socket-binding="https" secure="true">
+                <ssl password="PASSWORD" certificate-key-file="<PATH>/redhat.keystore" protocol="TLSv1" verify-client="false" certificate-file="<PATH>/redhat.crt"/>
+</connector>
+----
+
+
+SSL configuration on EAP 5
+--------------------------
+
+* Generate a new SSL certificate using the *keytool* application.
+The full command will be:
+----
+keytool -genkey -alias jboss -keyalg RSA -keystore test.keystore -validity 3650
+----
+Set the password for the keystore and key to be `password`
+
+
+You may set the other values to anything you like for the purposes of this lab. Hint: Generally, the first and last name entry is set to the hostname of your server (localhost in this case), to avoid some security warnings in the broswer. Remember what they are, so you can confirm them against the output from the browser in the last step.
+
+* Enable https in JBoss [deploy/jbossweb.sar] (port 8443) in the server.xml file, using the certificate generated in the previous step by editing the keystoreFile and keystorePass in the SSL connector.
+The keystorePass should be `password`, and the keystoreFile can be referred to via ${jboss.server.home.dir}/test.keystore
+
+
+Edit the server.xml file in jboss-eap-5.0/jboss-as/server/$PROFILE/deploy/jbossweb.sar directory. Add & configure https connector as below;
+
+
+<Connector protocol="HTTP/1.1" SSLEnabled="true"
+           port="8443" address="${jboss.bind.address}"
+           scheme="https" secure="true" clientAuth="false"
+           keystoreFile="${jboss.server.home.dir}/test.keystore"
+           keystorePass="redhat" sslProtocol = "TLS" />
+
+
+* Restart JBoss & test
+Test SSL configuration from https://localhost:8443
 
