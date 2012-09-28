@@ -1,0 +1,22 @@
+Configure web application cluster load balancing using Apache and mod_jk
+------------------------------------------------------------------------
+* Create `mod_jk.conf` under HTTPD_DIST/conf.d
+
+link:mod_jk.conf[mod_jk.conf content]
+
+* Create `workers.properties` under HTTPD_DIST/conf
+
+link:workers.properties[workers.properties content]
+
+* Create `uriworkermap.properties` under HTTPD_DIST/conf
+
+link:uriworkermap.properties[uriworkermap.properties content]
+
+* JBOSS_EAP_DIST/jboss-as/server/PROFILE/deploy/jbossweb.sar/server.xml, Specify the node name by appending the jvmRoute attribute to the <Engine> element in server.xml. The jvmRoute attribute value is the node name defined in HTTPD_DIST/conf/workers.properties. 
+----
+<Engine name="jboss.web" defaultHost="localhost" jvmRoute="node1">
+<!--Proceeding syntax removed for readability -->
+</Engine>
+----
+
+
