@@ -21,6 +21,7 @@
         <module>session-print</module>
         <module>session-replication</module>
 	<module>rewrite-proxy</module>
+	<module>webapp</module>
     </modules>
 
 </project>
