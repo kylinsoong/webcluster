@@ -34,42 +34,52 @@
 			<td>1</td> 
 			<td>Hello World</td> 
 			<td WIDTH="30%" ><a href="/webapp/HelloWorld"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/HelloWorld">Execute</a></td> 
-			<td WIDTH="30%" >1</td> 
+			<td WIDTH="30%" ><a href="HelloWorldServlet.html"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="HelloWorldServlet.html">Source</a></td> 
 		</tr> 
 		<tr> 
 			<td>2</td> 
 			<td>Request Information</td> 
 			<td WIDTH="30%" ><a href="/webapp/RequestInfo"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/RequestInfo">Execute</a></td> 
-			<td WIDTH="30%" >2</td> 
+			<td WIDTH="30%" ><a href="/webapp/PrintCode?name=RequestInfoServlet"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/PrintCode?name=RequestInfoServlet">Source</a></td> 
 		</tr> 
 		<tr> 
 			<td>3</td> 
 			<td>Request Headers</td> 
 			<td WIDTH="30%" ><a href="/webapp/RequestHeader"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/RequestHeader">Execute</a></td> 
-			<td WIDTH="30%" >8</td> 
+			<td WIDTH="30%" ><a href="/webapp/PrintCode?name=RequestHeaderServlet"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/PrintCode?name=RequestHeaderServlet">Source</a></td> 
 		</tr> 
 		<tr> 
 			<td>4</td> 
 			<td>Request Parameters</td> 
 			<td WIDTH="30%" ><a href="/webapp/RequestParam"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/RequestParam">Execute</a></td> 
-			<td WIDTH="30%" >3</td> 
+			<td WIDTH="30%" ><a href="/webapp/PrintCode?name=RequestParamServlet"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/PrintCode?name=RequestParamServlet">Source</a></td> 
 		</tr> 
 		<tr> 
 			<td>5</td> 
 			<td>Cookies</td> 
 			<td WIDTH="30%" ><a href="/webapp/Cookie"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/Cookie">Execute</a></td> 
-			<td WIDTH="30%" >10</td> 		
+			<td WIDTH="30%" ><a href="/webapp/PrintCode?name=CookieServlet"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/PrintCode?name=CookieServlet">Source</a></td> 		
 		</tr> 
 		<tr>        
                         <td>6</td>     
                         <td>Sessions</td>      
                         <td WIDTH="30%" ><a href="/webapp/Session"><h:graphicImage value="images/execute.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/Session">Execute</a></td>
-                        <td WIDTH="30%" >10</td>
+                        <td WIDTH="30%" ><a href="/webapp/PrintCode?name=SessionServlet"><h:graphicImage value="images/code.gif" /></a>&#160;&#160;&#160;&#160;&#160;&#160;<a href="/webapp/PrintCode?name=SessionServlet">Source</a></td>
                 </tr>
 
 	  </tbody> 
 	 </table> 
 
-
+	 <br/><br/>
+	 <h:form>
+		<table>
+    		<tr>
+    		  <td><h:inputTextarea value="#{servletBean.content}" cols="200" rows="10" /></td>
+    		</tr> 
+    		</table>
+    		<h:commandButton value="Submit" action="#{servletBean.test}" />
+    	  </h:form>
+         Source: <h:outputText value="#{servletBean.content}" />
+	
 	</ui:define>
 </ui:composition>
