@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kylin.webapp.Constant;
 import com.kylin.webapp.WebAppService;
+import com.kylin.webapp.servlet.bean.ServletBean;
 
 @WebServlet("/PrintCode")
 public class PrintCodeServlet extends HttpServlet {
@@ -20,28 +21,22 @@ public class PrintCodeServlet extends HttpServlet {
 
 	@Inject
 	private WebAppService service;
+	
+	@Inject
+	private ServletBean bean;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String name = req.getParameter("name");
 		
 		if(null != name) {
-			doHandler(name, req, resp);
+			doHandler(name);
 		}
 	}
 
-	private void doHandler(String name, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void doHandler(String name) {
 		
-		resp.setContentType(service.contentType());
 		
-		PrintWriter out = resp.getWriter();
-		
-		out.println(service.pageHeader(name));
-		out.println("<h3>" + service.getServletClassName(name) + "</h3>");
-		out.println(service.getServletContent(name));
-		out.println(service.pageFooter());
-		
-		out.close();
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
