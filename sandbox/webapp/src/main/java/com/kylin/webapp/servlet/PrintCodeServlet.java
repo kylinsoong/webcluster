@@ -1,7 +1,6 @@
 package com.kylin.webapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kylin.webapp.Constant;
 import com.kylin.webapp.WebAppService;
 import com.kylin.webapp.servlet.bean.ServletBean;
+import com.kylin.webapp.util.WebAppLoader;
 
 @WebServlet("/PrintCode")
 public class PrintCodeServlet extends HttpServlet {
@@ -30,13 +29,10 @@ public class PrintCodeServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		
 		if(null != name) {
-			doHandler(name);
+			bean.setContent(WebAppLoader.getInstance().get(name).getContent());
 		}
-	}
-
-	private void doHandler(String name) {
 		
-		
+		resp.sendRedirect(service.servletlocation());
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

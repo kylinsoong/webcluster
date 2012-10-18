@@ -88,8 +88,9 @@ public class SessionServlet extends HttpServlet {
         out.print(resp.encodeURL("Session?dataname=foo&datavalue=bar"));
         out.println("\" >URL encoded </a>");
 
-		
 		out.println(service.pageFooter());
+		
+		out.print(service.servletReturnStr());
 		
 		out.close();
 	}

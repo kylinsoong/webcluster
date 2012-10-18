@@ -66,6 +66,8 @@ public class RequestInfoServlet extends HttpServlet{
         
 		out.println(service.pageFooter());
 		
+		out.print(service.servletReturnStr());
+		
 		out.close();
 	}
 

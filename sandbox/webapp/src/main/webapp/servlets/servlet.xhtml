@@ -16,6 +16,8 @@
 
 		<li><p>Wherever you see a form, enter some data and see how the servlet reacts. When playing with the Cookie and Session Examples, jump back to the Headers Example to see exactly what your browser is sending the server.</p></li>		
 
+		<li><p>Click<h:graphicImage value="images/execute.gif" /> for executing Example, click<h:graphicImage value="images/code.gif" /> for showing Example code</p></li>
+
 		<br/>
 
 		<table class="zebra-striped"> 
@@ -74,12 +76,11 @@
 	 <h:form>
 		<table>
     		<tr>
-    		  <td><h:inputTextarea value="#{servletBean.content}" cols="200" rows="10" /></td>
+    		  <td><h:inputTextarea value="#{servletBean.content}" cols="50" rows="10" /></td>
     		</tr> 
     		</table>
-    		<h:commandButton value="Submit" action="#{servletBean.test}" />
+    		<h:commandButton value=" Reset " action="#{servletBean.reset}" styleClass="btn primary" />
     	  </h:form>
-         Source: <h:outputText value="#{servletBean.content}" />
 	
 	</ui:define>
 </ui:composition>

@@ -55,6 +55,8 @@ public class RequestParamServlet extends HttpServlet {
 		
 		out.println(service.pageFooter());
 		
+		out.print(service.servletReturnStr());
+		
 		out.close();
 	}
 

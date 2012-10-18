@@ -3,7 +3,6 @@ package com.kylin.webapp.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -26,11 +24,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-public class WebAppUtility {
+public class WebAppGenerater {
 	
-	private static String servletPath = "src/main/java/com/kylin/webapp/servlet/";
+	String servletPath = "src/main/java/com/kylin/webapp/servlet/";
 
-	private static String[] servletName = new String[]{"CookieServlet.java", "HelloWorldServlet.java", "RequestHeaderServlet.java", "RequestInfoServlet.java", "RequestParamServlet.java", "SessionServlet.java"};
+	String[] servletName = new String[]{"CookieServlet.java", "HelloWorldServlet.java", "RequestHeaderServlet.java", "RequestInfoServlet.java", "RequestParamServlet.java", "SessionServlet.java"};
+	
 	
 	List<WebApp> applist = new ArrayList<WebApp>();
 	
@@ -95,7 +94,7 @@ public class WebAppUtility {
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("webapp.xml"));
+		StreamResult result = new StreamResult(new File("src/main/resources/webapp.xml"));
 		
 		transformer.transform(source, result);
 		 
@@ -104,7 +103,7 @@ public class WebAppUtility {
 	
 	public static void main(String[] args) throws Exception {
 
-		new WebAppUtility().generateWebAppXML();
+		new WebAppGenerater().generateWebAppXML();
 	}
 
 }

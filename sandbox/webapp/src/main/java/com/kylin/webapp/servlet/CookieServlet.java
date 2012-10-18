@@ -63,10 +63,10 @@ public class CookieServlet extends HttpServlet {
         out.print("Value: " + "  ");
         out.println("<input type=text length=20 name=cookievalue><br>");
         out.println("<input type=submit></form>");
-
-
 		
 		out.println(service.pageFooter());
+		
+		out.print(service.servletReturnStr());
 		
 		out.close();
 	}

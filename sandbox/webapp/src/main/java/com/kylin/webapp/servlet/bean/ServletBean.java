@@ -11,7 +11,7 @@ public class ServletBean implements Serializable{
 
 	private static final long serialVersionUID = -713087320671026445L;
 	
-	private String content = "Click Button Show Source Code";
+	private String content = "Click To Show Source Code";
 	
 	public String getContent() {
 		return content;
@@ -21,14 +21,8 @@ public class ServletBean implements Serializable{
 		this.content = content;
 	}
 	
-	public void show() {
-		
-		setContent("This is Test");
-		System.out.println(content);
-	}
-	
 	public void reset() {
-		setContent("");
+		setContent("The Content be Reset");
 	}
 	
 }
