@@ -22,6 +22,7 @@
         <module>session-replication</module>
 	<module>rewrite-proxy</module>
 	<module>webapp</module>
+	<module>remoteClientIP</module>
     </modules>
 
 </project>

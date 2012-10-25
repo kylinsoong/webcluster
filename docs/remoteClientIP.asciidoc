@@ -1,0 +1,12 @@
+What's this?
+------------
+This is a demo project for testing get remote client IP.
+
+How to plan?
+------------
+build, deploy jar to web containter. if we use appache + mod_proxy mode as bellow configuration:
+
+link:JBoss_mod_proxy.conf[mod_proxy configuration]
+
+then we access http://10.66.129.154:9876/ then your Client IP will be print on Screen.
+

@@ -2,8 +2,9 @@ index
 -----
 link:sessionPrint.asciidoc[Session Print Demo Entry]
 
-link:sessionReplication.asciidoc[Session Replication Content Display Demo]
+link:sessionReplication.asciidoc[Session Replication Content Display Demo Entry]
 
+link:remoteClientIP.asciidoc[Remote Client IP Print Demo Emtry]
 
 
 other
@@ -12,5 +13,9 @@ link:implement_ssl_encryption.asciidoc[Implement SSL Encryption on Web Applicati
 
 link:replace_default_welcome_application.asciidoc[Replace the Default Welcome Web Application]
 
-link:configure_modcluster.asciidoc[Configure the Modcluster Subsystem]
+link:mod_cluster_configuration.asciidoc[Apache httpd + mod_cluster + JBoss]
+
+link:mod_jk_configuration.asciidoc[Apache httpd + mod_jk + JBoss]
+
+link:mod_proxy_configuration.asciidoc[Apache httpd + mod_proxy + JBoss]
 
