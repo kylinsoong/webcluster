@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ 
+ <distributable/>
+ 
+ <display-name>HTTP 500 Status Test</display-name>
+ 
+	<servlet>
+    <display-name>http500Test</display-name>
+    <servlet-name>http500Test</servlet-name>
+    <servlet-class>com.kylin.http500.HTTP500TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>http500Test</servlet-name>
+    <url-pattern>/http500</url-pattern>
+  </servlet-mapping>
+	
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
