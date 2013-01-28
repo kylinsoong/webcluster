@@ -23,6 +23,8 @@
 	<module>rewrite-proxy</module>
 	<module>webapp</module>
 	<module>remoteClientIP</module>
+	<module>http-500</module>
+        <module>classloader-print</module>
     </modules>
 
 </project>

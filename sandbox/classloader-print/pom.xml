@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>com.kylin.webcluster</groupId>
-   <artifactId>web-session-print</artifactId>
+   <artifactId>web-classloader-print</artifactId>
    <version>1.0</version>
    <packaging>war</packaging>
-   <name>web cluster</name>
-   <description>web cluster</description>
+   <name>Class Loader Print</name>
+   <description>Class Loader Print</description>
 
    <url>https://github.com/kylinsoong</url>
 

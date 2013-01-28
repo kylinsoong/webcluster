@@ -4,16 +4,16 @@
  
  <distributable/>
  
- <display-name>Print Session</display-name>
+ <display-name>Class Loader Session</display-name>
  
  <servlet>
-    <display-name>sessionPrint</display-name>
-    <servlet-name>sessionPrint</servlet-name>
-    <servlet-class>com.kylin.web.servlet.SessionPrintServlet</servlet-class>
+    <display-name>classLoaderPrint</display-name>
+    <servlet-name>classLoaderPrint</servlet-name>
+    <servlet-class>com.kylin.web.servlet.ClassLoaderPrintServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>sessionPrint</servlet-name>
-    <url-pattern>/sessionPrint</url-pattern>
+    <servlet-name>classLoaderPrint</servlet-name>
+    <url-pattern>/classLoaderPrint</url-pattern>
   </servlet-mapping>
  
 <!-- Authentication 

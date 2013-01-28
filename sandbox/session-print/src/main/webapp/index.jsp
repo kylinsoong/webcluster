@@ -72,4 +72,10 @@ Local Address: <%=localAddr %> &nbsp;&nbsp;&nbsp; Local Name: <%=localName %> &n
                                 <input type="submit" name="submit" value="View request session">
                         </form>
     </h2>
+    <hr>
+    <h2>
+                        <form name="form2" method="post" action="sessionPrint">
+                                <input type="submit" name="submit" value="Print Session ID">
+                        </form>
+    </h2>
 </body>
