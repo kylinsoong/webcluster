@@ -25,6 +25,7 @@
 	<module>remoteClientIP</module>
 	<module>http-500</module>
         <module>classloader-print</module>
+	<module>failover</module>
     </modules>
 
 </project>
