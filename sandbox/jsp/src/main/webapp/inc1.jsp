@@ -1,0 +1,4 @@
+<%
+String aaa="bbb";
+%>
+<%=aaa %>
