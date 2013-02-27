@@ -27,6 +27,7 @@
         <module>classloader-print</module>
 	<module>failover</module>
 	<module>jsp</module>
+        <module>singleton</module>
     </modules>
 
 </project>
