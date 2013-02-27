@@ -1,8 +1,8 @@
 Scenario One: `httpd` on 10.66.129.69, `standalone JBoss` on 10.66.129.116, printSession web app deployed on 10.66.129.116
 --------------------------------------------------------------------------------------------------------------------------
 
-1. httpd side configuration
-++++++++++++++++++++++++++++
+httpd side configuration
++++++++++++++++++++++++++
 
 * edit httpd/conf/httpd.conf, maded httpd listen on 10.66.129.69:80
 ----
@@ -25,8 +25,8 @@ link:JBoss_HTTP_1.conf[JBoss_HTTP_1.conf]
 service httpd start
 ----
 
-2. standalone JBoss side confiduration
-+++++++++++++++++++++++++++++++++++++++
+standalone JBoss side confiduration
+++++++++++++++++++++++++++++++++++++
 
 * start JBoss use standalone-ha.xml
 ----
@@ -50,9 +50,10 @@ service httpd start
 NOTE: balancer, proxy list should match the configuration of the external HTTPD server.
 
 * build add deploy printSession project to standalone JBoss on 10.66.129.116
- 
-3. test
-+++++++
+
+
+test
++++++
 
 . test through http://10.66.129.116:8080/printSession/
 
@@ -62,13 +63,13 @@ NOTE: balancer, proxy list should match the configuration of the external HTTPD 
 Scenario Two: `httpd` on 10.66.129.69, `standalone JBoss` on both 10.66.129.116 and 10.66.129.69, printSession web app deployed on both 10.66.129.116 and 10.66.129.69
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-1. httpd side configuration
-+++++++++++++++++++++++++++
+httpd side configuration
++++++++++++++++++++++++++
 
 Totally identical with scenario One
 
-2. standalone JBoss side confiduration
-+++++++++++++++++++++++++++++++++++++++
+standalone JBoss side confiduration
+++++++++++++++++++++++++++++++++++++
 
 * start JBoss use standalone-ha.xml
 
@@ -95,7 +96,7 @@ Totally identical with scenario One
 
 * build add deploy printSession project on both 10.66.129.116 and 10.66.129.69
 
-3 test
-++++++
+test
++++++
 
 . test through http://10.66.129.69/printSession/
