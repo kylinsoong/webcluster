@@ -1,0 +1,40 @@
+1. 方案简介与目的
+
+
+2. 方案配置
+2.1 下载mod_cluster相关安装包
+在 JBoss 社区mod_cluster页面（http://www.jboss.org/mod_cluster）选择下载（Downloads），选定相应的版本（1-2-0-Final），弹出页面会列出所以相关的 Java 模块（主要用来与JBoss AS 6以及之前的版本完成集群配置），编译完成的Apache httpd，Apache httpd端动态模块包，根据您的平台选择相关包进行下载我们会得到如下文件：mod_cluster-1.2.0.Final-bin.tar.gz，mod_cluster-1.2.0.Final-linux2-x86-so.tar.gz，mod_cluster-1.2.0.Final-linux2-x86-ssl.tar.gz，解压mod-cluster-1.0.0-linux2-x86-ssl.tar.gz我们会得到一个安装完成的httpd位于opt/jboss目录下，这里我们不使用此安装，我们使用从操作系统层面以安装包方式安装，如下面所示，解压mod_cluster-1.2.0.Final-linux2-x86-so.tar.gz，我们会得到如下包：mod_advertise.so  mod_manager.so  mod_proxy_cluster.so  mod_slotmem.so，如下面所示我们需要将这些包拷贝到httpd modules 目录下。
+2.2 安装 Apache httpd
+    参照第二章
+2.3 Apache httpd 端配置
+1. 编辑httpd/conf/httpd.conf，让httpd监听在10.66.192.48:80上
+Listen 10.66.192.48:80
+2. 拷贝mod_cluster所有.so文件到httpd/modules目录
+3. 编辑httpd/conf/httpd.conf，注释掉mod_proxy_balancer模块，以为此模块与mod_cluster相关模块不兼容。
+# LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+4. 在httpd/conf.d目录下创建JBoss_HTTP.conf文件，将如下内容添加到此文件
+# add mod_cluster reference module
+LoadModule slotmem_module modules/mod_slotmem.so
+LoadModule manager_module modules/mod_manager.so
+LoadModule proxy_cluster_module modules/mod_proxy_cluster.so
+LoadModule advertise_module modules/mod_advertise.so
+
+
+Listen 10.66.192.48:6666
+
+<VirtualHost 10.66.192.48:6666>
+    <Directory />
+        Order deny,allow
+        Allow from all
+    </Directory>
+    <Location />
+        Order deny,allow
+        Allow from all
+    </Location>
+    KeepAliveTimeout 60
+    ManagerBalancerName kylincluster
+    ServerAdvertise Off
+    EnableMCPMReceive On
+</VirtualHost>
+5. 检查Apache httpd端配置正确
+配置完成后重启Apache httpd，如果启动显示成功表明配置正确。
