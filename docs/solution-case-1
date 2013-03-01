@@ -19,7 +19,6 @@ LoadModule manager_module modules/mod_manager.so
 LoadModule proxy_cluster_module modules/mod_proxy_cluster.so
 LoadModule advertise_module modules/mod_advertise.so
 
-
 Listen 10.66.192.48:6666
 
 <VirtualHost 10.66.192.48:6666>
@@ -27,14 +26,72 @@ Listen 10.66.192.48:6666
         Order deny,allow
         Allow from all
     </Directory>
-    <Location />
+    <Location /mod_cluster-manager>
+        SetHandler mod_cluster-manager
         Order deny,allow
         Allow from all
     </Location>
-    KeepAliveTimeout 60
-    ManagerBalancerName kylincluster
-    ServerAdvertise Off
-    EnableMCPMReceive On
+          KeepAliveTimeout 60
+          MaxKeepAliveRequests 0
+          AdvertiseFrequency 5
+          ManagerBalancerName kylincluster
+          ServerAdvertise Off
+          EnableMCPMReceive On
 </VirtualHost>
+
 5. 检查Apache httpd端配置正确
 配置完成后重启Apache httpd，如果启动显示成功表明配置正确。
+
+2.4 JBoss 端配置
+我们可以通过如下三种方式添加proxy-list，balancer完成集群配置
+1. 修改配置文件
+编辑/standalone/configuration/standalone-ha.xml文件，找到urn:jboss:domain:modcluster部分，修改mod-cluster-config的属性如下：
+<mod-cluster-config advertise-socket="modcluster" proxy-list="10.66.192.48:6666" balancer="kylinBalancer" sticky-session="true" connector="ajp">
+保存修改文件即完成配置。
+2. 通过Web管理界面
+以standalone-ha.xml模式（./standalone.sh -c standalone-ha.xml）启动JBoss后登录管理界面（http://localhost:9990/console），选择Profile，Web，mod_cluster，在弹出界面点击相关按钮，编辑balancer值为kylinBalancer，proxy-list值为10.66.192.48:6666，sticky-session值为true。
+3. 通过命令行管理窗口
+以standalone-ha.xml模式（./standalone.sh -c standalone-ha.xml）启动JBoss后进入到命令行界面，执行如下命令：
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=sticky-session,value=false)
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.192.48:6666)
+说明：proxy-list，balancer的值需要与Apache httpd端配置想对应，我们应该依次对两个节点进行配置
+
+2.5 启动完成集群方案配置
+1. 启动Apache httpd
+如前面章节描述执行
+service httpd start
+启动Apache httpd
+2. 使用如下命令依次启动JBoss两个节点
+./standalone.sh -c standalone-ha.xml -b 10.66.192.231 -bmanagement 10.66.192.231 -u 239.255.100.100 -Djboss.node.name=node1 -Djboss.mod_cluster.jvmRoute=node1
+./standalone.sh -c standalone-ha.xml -b 10.66.192.232 -bmanagement 10.66.192.232 -u 239.255.100.100 -Djboss.node.name=node2 -Djboss.mod_cluster.jvmRoute=node2
+3.检测启动情况
+登录http://10.66.192.48:6666/mod_cluster-manager显示mod_cluster界面。
+登录http://10.66.192.231:9990/console显示231节点管理界面
+登录http://10.66.192.232:9990/console显示232节点管理界面
+
+
+2.6 部署应用测试
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
