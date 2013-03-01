@@ -1,4 +1,4 @@
-Scenario One: `httpd` on 10.66.129.69, `standalone JBoss` on 10.66.129.116, printSession web app deployed on 10.66.129.116
+Scenario One: `httpd` on 10.66.192.48, `standalone JBoss` on 10.66.192.231, printSession web app deployed on 10.66.192.231
 --------------------------------------------------------------------------------------------------------------------------
 
 httpd side configuration
@@ -6,7 +6,7 @@ httpd side configuration
 
 * edit httpd/conf/httpd.conf, maded httpd listen on 10.66.129.69:80
 ----
-Listen 10.66.129.69:80
+Listen 10.66.192.48:80
 ----
 
 * copy mod_cluster referenced *.so to httpd/modules
@@ -30,7 +30,7 @@ standalone JBoss side confiduration
 
 * start JBoss use standalone-ha.xml
 ----
-./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.116
+./standalone.sh -c standalone-ha.xml -b 10.66.192.231 -bmanagement 10.66.192.231 -u 239.255.100.100 -Djboss.node.name=node1 -Djboss.mod_cluster.jvmRoute=node1
 ----
 
 * either use CLI or management console add balancer, unable sticky session, add proxy list
@@ -55,18 +55,40 @@ NOTE: balancer, proxy list should match the configuration of the external HTTPD 
 test
 +++++
 
-. test through http://10.66.129.116:8080/printSession/
+. test via http://10.66.192.231:8080/printSession/
 
-. test through http://10.66.129.69/printSession/
+. test via http://10.66.192.48/printSession/
+
+. test via http://10.66.192.48:6666/mod_cluster-manager
 
 
-Scenario Two: `httpd` on 10.66.129.69, `standalone JBoss` on both 10.66.129.116 and 10.66.129.69, printSession web app deployed on both 10.66.129.116 and 10.66.129.69
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Scenario Two: `httpd` on 10.66.192.48, `standalone JBoss` on both 10.66.192.231 and 10.66.192.232, printSession web app deployed on both 10.66.192.231 and 10.66.192.232
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 httpd side configuration
 +++++++++++++++++++++++++
 
-Totally identical with scenario One
+* edit httpd/conf/httpd.conf, maded httpd listen on 10.66.129.69:80
+----
+Listen 10.66.192.48:80
+----
+
+* copy mod_cluster referenced *.so to httpd/modules
+
+* disable the mod_proxy_balancer module from httpd/conf/httpd.conf
+----
+#LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
+----
+
+* copy JBoss_HTTP_1.conf to folder httpd/conf.d
+
+link:JBoss_HTTP_1.conf[JBoss_HTTP_1.conf]
+
+* start httpd
+----
+service httpd start
+----
+
 
 standalone JBoss side confiduration
 ++++++++++++++++++++++++++++++++++++
@@ -74,14 +96,14 @@ standalone JBoss side confiduration
 * start JBoss use standalone-ha.xml
 
 ----
-./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.69 -Djboss.node.name=node1
+./standalone.sh -c standalone-ha.xml -b 10.66.192.231 -bmanagement 10.66.192.231 -u 239.255.100.100 -Djboss.node.name=node1 -Djboss.mod_cluster.jvmRoute=node1
 ----
 
 ----
-./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.116 -Djboss.node.name=node2
+./standalone.sh -c standalone-ha.xml -b 10.66.192.232 -bmanagement 10.66.192.232 -u 239.255.100.100 -Djboss.node.name=node2 -Djboss.mod_cluster.jvmRoute=node2
 ----
 
-* either use CLI or management console add balancer, unable sticky session, add proxy list, both 10.66.129.116 and 10.66.129.69 do the same operation
+* either use CLI or management console add balancer, unable sticky session, add proxy list, both 10.66.192.231 and 10.66.192.232 do the same operation
 ----
 /subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=balancer,value=kylinBalancer)
 ---- 
@@ -91,12 +113,18 @@ standalone JBoss side confiduration
 ----
 
 ----
-/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.129.69:9876)
+/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxy-list,value=10.66.192.48:6666)
 ----
 
-* build add deploy printSession project on both 10.66.129.116 and 10.66.129.69
+* build add deploy printSession project on both 10.66.192.231 and 10.66.192.232 
 
 test
 +++++
 
-. test through http://10.66.129.69/printSession/
+. test via http://10.66.192.231:8080/printSession
+
+. test via http://10.66.192.232:8080/printSession/
+
+. test via http://10.66.192.48/printSession/
+
+. test via http://10.66.192.48:6666/mod_cluster-manager
