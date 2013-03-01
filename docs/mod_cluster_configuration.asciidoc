@@ -30,7 +30,7 @@ standalone JBoss side confiduration
 
 * start JBoss use standalone-ha.xml
 ----
-./standalone.sh --server-config=standalone-ha.xml -b 10.66.129.116
+./standalone.sh -c standalone-ha.xml -b 10.66.192.231 -bmanagement 10.66.192.231 -u 239.255.100.100 -Djboss.node.name=node1 -Djboss.mod_cluster.jvmRoute=node1
 ----
 
 * either use CLI or management console add balancer, unable sticky session, add proxy list
