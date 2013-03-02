@@ -1,12 +1,7 @@
-package com.redhat.cloudform.demo.events;
+package com.kylin.webcluster.demo.events;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 public class Content implements  Serializable{
 

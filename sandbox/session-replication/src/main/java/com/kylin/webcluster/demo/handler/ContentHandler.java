@@ -1,4 +1,4 @@
-package com.redhat.cloudform.demo.handler;
+package com.kylin.webcluster.demo.handler;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.inject.Named;
 
 import org.apache.log4j.Logger;
 
-import com.redhat.cloudform.demo.events.Content;
+import com.kylin.webcluster.demo.events.Content;
 
 @SessionScoped
 public class ContentHandler implements Serializable {

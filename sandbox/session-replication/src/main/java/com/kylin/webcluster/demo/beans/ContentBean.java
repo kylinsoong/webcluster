@@ -1,4 +1,4 @@
-package com.redhat.cloudform.demo.beans;
+package com.kylin.webcluster.demo.beans;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import org.apache.log4j.Logger;
 
-import com.redhat.cloudform.demo.events.Content;
+import com.kylin.webcluster.demo.events.Content;
 
 @Named
 @SessionScoped
@@ -46,7 +46,7 @@ public class ContentBean implements Serializable {
 		Content currentEvtPayload = new Content();
 		currentEvtPayload.setDatetime(new Date());
 		currentEvtPayload.setContent(content);
-		currentEvtPayload.setServer(System.getProperty("jboss.bind.address"));
+		currentEvtPayload.setServer(initServerStr());
 		
 		contentProducer.fire(currentEvtPayload);
 		
@@ -55,6 +55,24 @@ public class ContentBean implements Serializable {
 		return "index";
 	}
 	
+	private String initServerStr() {
+		
+		StringBuffer sb = new StringBuffer();
+		
+		String ip = System.getProperty("jboss.bind.address");
+		if(null != ip) {
+			sb.append(ip);
+			sb.append(" / ");
+		}
+		
+		String jbossNodeName = System.getProperty("jboss.node.name");
+		if(null != jbossNodeName) {
+			sb.append(jbossNodeName);
+		}
+		
+		return sb.toString();
+	}
+
 	public void reset() {
 		
 		logger.info("reset content");

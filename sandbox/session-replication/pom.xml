@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kylin.webcluster</groupId>
-    <artifactId>session-replication</artifactId>
+    <artifactId>webcluster-session-replication</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
     <name>Session Replication</name>
@@ -17,10 +17,11 @@
 
         <jboss.bom.version>1.0.0.Final</jboss.bom.version>
         <jboss.javaee6.spec.version>3.0.0.Final</jboss.javaee6.spec.version>
-
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         <war.plugin.version>2.1.1</war.plugin.version>
-	
-	<compiler.plugin.version>2.3.1</compiler.plugin.version>
+	    <version.tomcat6>6.0.35</version.tomcat6>
+	    <compiler.plugin.version>2.3.1</compiler.plugin.version>
+	    <version.commons-http-client>3.1</version.commons-http-client>
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -53,11 +54,6 @@
             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-	<dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>provided</scope>
-        </dependency>	
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
@@ -79,16 +75,23 @@
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
 	<dependency>
            <groupId>log4j</groupId>
            <artifactId>log4j</artifactId>
            <version>1.2.16</version>
+           <scope>provided</scope>
        </dependency>
+       <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>${version.tomcat6}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>${version.commons-http-client}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -100,6 +103,11 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>${version.jboss.maven.plugin}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
