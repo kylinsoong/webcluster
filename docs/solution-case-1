@@ -70,28 +70,57 @@ service httpd start
 登录http://10.66.192.231:9990/console显示231节点管理界面
 登录http://10.66.192.232:9990/console显示232节点管理界面
 
-
 2.6 部署应用测试
+2.6.1 部署应用及测试
+使用Maven编译session-replication工程，webcluster-session-replication.war将会产生，分别部署webcluster-session-replication.war到两个JBoss节点上，部署成功后使用http://10.66.192.48/sessionReplication访问测试应用，点击蓝色添加按钮添加内容三次，结果显示如下图所示：
+2-2 会话复制示例
+如上图所示，mod_cluster分发请求到10.66.192.231 节点1 JBoss，由于节点1和节点2进行者状态复制，所以如果我们直接访问节点2（http://10.66.192.232：8080/sessionReplication）会看到之前添加的内容已经存在
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+2.6.2 结果分析
+节点1和节点2之间进行会话状态同步是通过JBoss缓存产品Infinispan和JGroups完成的，大体架构如下图所示:
+2-3 JBoss集群架构
+JGroups是一个可靠多波通信工具，借助于网络多波通信进行状态复制，Infinispan则基于JGroups之上的分布式缓存，JBoss集群进行状态复制是因为我们做了如下的配置：
+JBoss端Infinispan相关配置如下：
+----
+<subsystem xmlns="urn:jboss:domain:infinispan:1.2">
+<cache-container name="web" default-cache="repl-sync">
+<transport stack="udp"/>
+<replicated-cache name="repl-async" mode="ASYNC"/>
+<replicated-cache name="repl-sync" mode="SYNC"/>
+<distributed-cache name="dist-async" owners="2" mode="ASYNC"/>
+<distributed-cache name="dist-sync" owners="2" mode="SYNC"/>
+</cache-container>
+</subsystem>
+----
+JBoss端JGroups相关配置如下：
+----
+<subsystem xmlns="urn:jboss:domain:jgroups:1.1" default-stack="udp">
+<stack name="udp">
+<transport type="UDP" socket-binding="jgroups-udp"/>
+<protocol type="PING"/>
+<protocol type="FD_SOCK" socket-binding="jgroups-udp-fd"/>
+<protocol type="pbcast.NAKACK"/>
+<protocol type="UNICAST2"/>
+<protocol type="pbcast.STABLE"/>
+<protocol type="pbcast.GMS"/>
+<protocol type="FRAG2"/>
+</stack>
+<stack name="tcp">
+<transport type="TCP" socket-binding="jgroups-tcp"/>
+<protocol type="MPING" socket-binding="jgroups-mping"/>
+...
+</stack>
+</subsystem>
+----
+webcluster-session-replication.war/WEB-INF/web.xml端配置
+----
+<distributable/>
+----
+webcluster-session-replication.war/WEB-INF/jboss-web.xml端配置
+----
+<replication-config>
+<cache-name>web.repl-async</cache-name>
+</replication-config>
+----
+详细关于Infinispan的内容将在本书第四部分进行讨论，详细关于JGroups的内容将在本书第二部分进行讨论
 
