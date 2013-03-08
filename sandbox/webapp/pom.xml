@@ -75,6 +75,11 @@
                  <target>${maven.compiler.target}</target>
             </configuration>
          </plugin>
+<plugin>
+    <groupId>org.jboss.as.plugins</groupId>
+    <artifactId>jboss-as-maven-plugin</artifactId>
+    <version>7.3.Final</version>
+</plugin>
       </plugins>
    </build>
 
