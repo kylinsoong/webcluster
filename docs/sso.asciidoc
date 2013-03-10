@@ -1,0 +1,13 @@
+How SSO Works
+-------------
+
+* If a resource is unprotected, a user is not challenged to authenticate at all.  If a user accesses a protected resource, the user is required to authenticate.
+
+* Upon successful authentication, the roles associated with the user are stored and used for authorization of all other associated resources.
+
+* If the user logs out of an application, or an application invalidates the session programmatically, all persisted authorization data is removed, and the process starts over.
+
+* A session timeout does not invalidate the SSO session if other sessions are still valid.
+
+
+
