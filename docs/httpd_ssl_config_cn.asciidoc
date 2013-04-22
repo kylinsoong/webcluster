@@ -1,0 +1,15 @@
+1. 利用[yum]安装，[httpd]相关[rpm]包
+    # yum install httpd
+2. 利用[yum]安装，[https]相关[rpm]包
+    # yum install mod_ssl
+3. SSL 配置
+   通过[/etc/httpd/conf.d/ssl.conf]来修改关于[https]相关配置（按照[ssl.conf]的默认配置文件，[https]就可以正常启动，端口443，
+根目录[Documentroot]为默认的[/var/www/html]）。即上面1，2步骤完成后SSL配置已经完成。
+4. 启动 httpd
+    # service httpd start
+5. 测试
+   在/var/www/html下创建一个测试文件，例如在/var/www/html在创建test文件，并给test文件添加如下内容：
+   ----
+   it works
+   ----
+   通过https访问test文件 https://<IP>/test，如it works出现在页面则配置成功

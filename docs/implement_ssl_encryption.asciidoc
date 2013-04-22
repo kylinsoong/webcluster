@@ -101,3 +101,27 @@ Edit the server.xml file in jboss-eap-5.0/jboss-as/server/$PROFILE/deploy/jbossw
 * Restart JBoss & test
 Test SSL configuration from https://localhost:8443
 
+SSL configuration on httpd
+--------------------------
+
+* httpd install
+----
+yum install httpd
+----
+
+* mod_ssl install
+----
+yum install mod_ssl
+----
+
+* SSL configration
+By default, httpd/conf.d/ssl.conf contain all SSL refer configuration, we do no need do any further configuring 
+
+* Start httpd
+----
+service httpd start
+----
+
+* Test
+Create a file named test under /var/www/html, add some content to test file, access test file via https as below
+  https://<IP>/test

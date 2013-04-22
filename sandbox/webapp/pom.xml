@@ -79,6 +79,19 @@
     <groupId>org.jboss.as.plugins</groupId>
     <artifactId>jboss-as-maven-plugin</artifactId>
     <version>7.3.Final</version>
+    <configuration>
+					<hostname>10.66.192.48</hostname>
+					<port>9999</port>
+					<filename>web-app.war</filename>
+				</configuration>	
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 </plugin>
       </plugins>
    </build>
