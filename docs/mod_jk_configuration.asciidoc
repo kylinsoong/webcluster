@@ -1,5 +1,8 @@
 Configure web application cluster load balancing using Apache and mod_jk
 ------------------------------------------------------------------------
+
+* download mod_jk.so from http://tomcat.apache.org/download-connectors.cgi
+
 * Create `mod_jk.conf` under HTTPD_DIST/conf.d
 
 link:mod_jk.conf[mod_jk.conf content]
