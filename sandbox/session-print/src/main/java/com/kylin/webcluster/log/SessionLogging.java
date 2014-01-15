@@ -8,6 +8,8 @@ public class SessionLogging {
 	
 	public void logRequest(RequestBean bean) {
 		
+		logger.info("reload test");
+		
 		logger.info("Session ID: " + bean.getSessionId());
 		
 		if(logger.isDebugEnabled()) {

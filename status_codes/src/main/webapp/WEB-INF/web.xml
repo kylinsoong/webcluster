@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<distributable />
+
+	<display-name>Print Session</display-name>
+
+	<servlet>
+		<display-name>403Error</display-name>
+		<servlet-name>403Error</servlet-name>
+		<servlet-class>org.jboss.web.codes.servlet.StatusCode403Servlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>404Error</display-name>
+		<servlet-name>404Error</servlet-name>
+		<servlet-class>org.jboss.web.codes.servlet.StatusCode404Servlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>500Error</display-name>
+		<servlet-name>500Error</servlet-name>
+		<servlet-class>org.jboss.web.codes.servlet.StatusCode500Servlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>403Error</servlet-name>
+		<url-pattern>/403Error</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>404Error</servlet-name>
+		<url-pattern>/404Error</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>500Error</servlet-name>
+		<url-pattern>/500Error</url-pattern>
+	</servlet-mapping>
+	
+
+	<!-- Authentication <login-config> <auth-method>BASIC</auth-method> <realm-name>JBossAdmin</realm-name> 
+		</login-config> -->
+	<!-- <security-constraint> <web-resource-collection> <web-resource-name>Entire 
+		web application</web-resource-name> <description>Declarative security tests</description> 
+		<url-pattern>/content/*</url-pattern> <http-method>HEAD</http-method> <http-method>GET</http-method> 
+		<http-method>POST</http-method> <http-method>PUT</http-method> <http-method>DELETE</http-method> 
+		</web-resource-collection> <auth-constraint> <role-name>JBossAdmin</role-name> 
+		</auth-constraint> </security-constraint> <security-role> <role-name>JBossAdmin</role-name> 
+		</security-role> <error-page> <error-code>403</error-code> <location>/message.html</location> 
+		</error-page> -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
