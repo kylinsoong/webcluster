@@ -21,6 +21,7 @@
         <module>booking</module>
         <module>sandbox</module>
 	<module>status_codes</module>
+        <module>errorReport</module>
     </modules>
 
 </project>
