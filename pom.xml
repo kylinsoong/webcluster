@@ -22,6 +22,7 @@
         <module>sandbox</module>
 	<module>status_codes</module>
         <module>errorReport</module>
+        <module>classloader</module>
     </modules>
 
 </project>

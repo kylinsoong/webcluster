@@ -2,19 +2,21 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
  
+ <!--  
  <distributable/>
+ -->
  
- <display-name>Class Loader Session</display-name>
+ <display-name>Class Loader View</display-name>
  
  <servlet>
-    <display-name>classLoaderPrint</display-name>
-    <servlet-name>classLoaderPrint</servlet-name>
-    <servlet-class>com.kylin.web.servlet.ClassLoaderPrintServlet</servlet-class>
+    <display-name>classLoaderview</display-name>
+    <servlet-name>classLoaderview</servlet-name>
+    <servlet-class>org.jboss.web.servlet.ClassLoaderViewServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>classLoaderPrint</servlet-name>
-    <url-pattern>/classLoaderPrint</url-pattern>
+    <servlet-name>classLoaderview</servlet-name>
+    <url-pattern>/classLoaderview</url-pattern>
   </servlet-mapping>
  
 <!-- Authentication 

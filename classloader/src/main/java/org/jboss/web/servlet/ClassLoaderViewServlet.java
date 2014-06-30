@@ -1,4 +1,4 @@
-package com.kylin.web.servlet;
+package org.jboss.web.servlet;
 
 import java.io.IOException;
 
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ClassLoaderPrintServlet extends HttpServlet {
+public class ClassLoaderViewServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6766348308173972664L;
 	
-	public ClassLoaderPrintServlet() {
-		System.out.println(" ClassLoaderPrintServlet Construct");
+	public ClassLoaderViewServlet() {
+		System.out.println(" ClassLoaderViewServlet Construct");
 		System.out.println(DocumentBuilderFactory.newInstance());
 	}
 
@@ -24,7 +24,7 @@ public class ClassLoaderPrintServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println(" ClassLoaderPrintServlet doPost");
+		System.out.println(" ClassLoaderViewServlet doPost");
 		System.out.println(DocumentBuilderFactory.newInstance());
 	}
 	
